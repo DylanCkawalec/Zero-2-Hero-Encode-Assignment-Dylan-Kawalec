@@ -1,0 +1,52 @@
+/**
+//It defines the way in which external programs can interact with the contract's functions and data. 
+**/
+
+
+// If we compare the retrieve function with the ABI output, the format becomes very clear. The ABI records the contract backwards.
+
+[ // **Start of ABI**
+{ "inputs": [], "name": "retrieve", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256"}],
+		"stateMutability": "view",
+		"type": "function" }, //**move onto the next JSON structure**
+
+/**
+// 1. There is a name parameter that is called 'retieve'
+// 2. the outputs are the return parameters in the function. 
+// 3. stateMutability == view and the type of this structure is a function. 
+**/
+    
+	
+{ "inputs": [{"internalType": "uint256","name": "num","type": "uint256"}],
+		"name": "store", "outputs": [], "stateMutability": "nonpayable", "type": "function"}
+/**
+// 1. The parameters of the functions are scanned moving backwards. The type of the 'num' is uint256, ad then the internal type reflects the named parameter. 
+// 2. Since there is not return type, the output field remains blank.
+// 3. the type is a function, the name of that function is store, and the stateMutability is nonPayable by default since it did not specify view, pure or external view.
+**/
+
+
+
+] // ** End of ABI**
+
+// ------ ** Contract ** ------
+contract Storage {
+
+    uint256 number;
+
+    /**
+     * @dev Store value in variable
+     * @param num value to store
+     */
+    function store(uint256 num) public {
+        number = num;
+    }
+
+    /**
+     * @dev Return value 
+     * @return value of 'number'
+     */
+    function retrieve() public view returns (uint256){
+        return number;
+    }
+} // ** End of Contract **
